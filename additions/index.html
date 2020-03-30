@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Les additions</title>
+        <link rel="stylesheet" type="text/css" href="theme/main.css">
+
+        <script>
+        
+        function AdditionGame(domContainerId){
+
+            //affectation de self à self qui permettra d'être toujours sur de faire référence à l'objet.
+            let self = this; 
+
+            self.domContainerId = domContainerId;
+            self.container = document.getElementById(domContainerId);
+
+            //on va recréer 2 un blocks à l'intérieur du container  score et blackboard.
+
+            self.scoreDiv=document.createElement("div");
+            self.scoreDiv.setAttribute("id","score");
+            self.container.appendChild(self.scoreDiv);
+
+            self.blackboard=document.createElement("div");
+            self.blackboard.setAttribute("id","blackboard");
+            self.container.appendChild(self.blackboard);
+
+            
+
+
+            self.score=0;
+
+            self.a = null;
+            self.b = null;
+            self.reponse=null;
+
+
+            
+
+
+            self.updateScore=function(){
+                self.scoreDiv.innerHTML="Score : "+ self.score;
+            }
+
+            self.startGame=function(){
+
+                self.score=0;
+                self.updateScore();
+
+                self.blackboard.innerHTML="<h1>Bienvenue, le jeu des additions.</h1>";
+                let btnStart = document.createElement("button");
+                btnStart.innerText="C'est parti";
+                btnStart.addEventListener("click",self.nextQuestion);
+                self.blackboard.appendChild(btnStart);    
+
+            }
+
+            self.validerReponse=function(){
+                
+                //on supprime le listener sinon il continue de s'executer.
+                removeEventListener("keydown",self.keyPressed);
+
+                let reponseJuste=Number(self.a)+Number(self.b);
+                console.log(reponseJuste);
+
+                if (reponseJuste==Number(self.reponse)){
+                    self.blackboard.innerHTML='<p>Bravo !</p>'; 
+                    self.score+=1;
+                    self.updateScore();
+                }
+                else{
+                    self.blackboard.innerHTML='<p>Dommage <br> La bonne réponse était '+reponseJuste+" :(</p>"
+                }
+
+                let btnSuivant = document.createElement("button");
+                btnSuivant.innerText="Calcul suivant";
+                btnSuivant.addEventListener("click",self.nextQuestion);
+                self.blackboard.appendChild(btnSuivant); 
+
+            }
+
+            self.keyPressed=function(e){
+                console.log(e.key);
+
+                e.preventDefault(); //sinon backspace renvoie à la page précédente
+                
+                //  si la valeur de la touche est un nombre fini.
+                if (isFinite(e.key)){
+                    self.blackboard.innerHTML+=e.key;
+                    self.reponse+=e.key;
+                }
+                else if(e.key=="Enter"){
+                    self.validerReponse();
+                }
+            }
+
+            self.nextQuestion=function(){
+
+                
+                self.reponse="";
+                self.a=Math.round(Math.random()*10);
+                self.b=Math.round(Math.random()*10);
+
+                self.blackboard.innerHTML=self.a+" + "+self.b+" = ";
+                
+                addEventListener("keydown",self.keyPressed);
+
+            }
+
+        
+        }
+
+        
+        window.addEventListener(
+                    "DOMContentLoaded",
+                    function(){
+                        partie=new AdditionGame("playground");
+                        partie.startGame();
+                    }
+        );
+        </script>
+
+
+    </head>
+
+    <body>
+        <main id="playground"></main>
+    </body>
+
+</html>

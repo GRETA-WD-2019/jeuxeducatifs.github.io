@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Homemade+Apple|Montserrat+Alternates&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+}
+
+
+html{
+    font-size : 5vmin;
+    font-family: 'Homemade Apple', cursive;
+
+}
+
+body{
+    min-height:100vh;
+    background : url(gfx/jungle.png);
+    background-size:cover;
+    background-position: bottom;
+
+    display:flex;
+    align-items: center;
+    justify-content: left;
+}
+
+
+
+main#playground{
+
+    margin-left: 68vmin;
+  
+
+    
+}
+
+main#playground #score{
+    position : absolute;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight:bold;
+    color:gold;
+    top: 1em;
+    left:1em;
+
+}
+
+main#playground h1{
+    font-size: 1em;
+}
+
+main#playground #blackboard{
+    text-align:center;
+    background:black;
+    color: whitesmoke;
+    padding : 0.5rem;
+    width:50vw;
+    height:50vh;
+    border-radius: 1em;
+    border:1em solid goldenrod;
+
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    position:relative;
+    
+    
+}
+
+main#playground #blackboard *{
+    transform: rotate(-10deg);
+}
+
+main#playground #blackboard button{
+    position:absolute;
+    bottom: 2em;
+    right:2em;
+}
+
+
+body::after{
+    content:"";
+    display: block;
+    position:fixed;
+    bottom : 1em;
+    left: .1em;
+    height: 70vmin;
+    width: 70vmin;
+    background:url(gfx/dino.png) no-repeat;
+    background-size:contain;
+    z-index:1000;
+}
