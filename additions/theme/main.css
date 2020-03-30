@@ -28,7 +28,7 @@ body{
 main#playground{
 
     margin-left: 68vmin;
-  
+    
 
     
 }
@@ -52,7 +52,7 @@ main#playground #blackboard{
     background:black;
     color: whitesmoke;
     padding : 0.5rem;
-    width:50vw;
+    width:calc( 50vh * 1.5 );
     height:50vh;
     border-radius: 1em;
     border:1em solid goldenrod;
@@ -71,12 +71,29 @@ main#playground #blackboard *{
     transform: rotate(-10deg);
 }
 
+main#playground #blackboard p#calcul{
+    transform: rotate(-2deg);
+    font-size:1.5rem;
+}
+
 main#playground #blackboard button{
     position:absolute;
     bottom: 2em;
     right:2em;
-}
 
+    transform: rotate(-5deg);
+
+    border:none;
+    background:transparent;
+    font-family: 'Homemade Apple', cursive;
+    color:white;
+    font-size:0.7rem;
+    cursor : pointer;
+    color:greenyellow;
+}
+main#playground #blackboard button::after{
+    content:" ==>"
+}
 
 body::after{
     content:"";

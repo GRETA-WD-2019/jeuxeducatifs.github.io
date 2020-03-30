@@ -86,7 +86,7 @@
                 
                 //  si la valeur de la touche est un nombre fini.
                 if (isFinite(e.key)){
-                    self.blackboard.innerHTML+=e.key;
+                    self.blackboard.querySelector("p").innerHTML+=e.key;
                     self.reponse+=e.key;
                 }
                 else if(e.key=="Enter"){
@@ -98,10 +98,10 @@
 
                 
                 self.reponse="";
-                self.a=Math.round(Math.random()*10);
-                self.b=Math.round(Math.random()*10);
+                self.a=Math.round(Math.random()*100);
+                self.b=Math.round(Math.random()*100);
 
-                self.blackboard.innerHTML=self.a+" + "+self.b+" = ";
+                self.blackboard.innerHTML='<p id="calcul">'+self.a+" + "+self.b+" = </p>";
                 
                 addEventListener("keydown",self.keyPressed);
 
