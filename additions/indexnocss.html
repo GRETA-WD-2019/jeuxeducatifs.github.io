@@ -89,6 +89,13 @@
                     self.blackboard.querySelector("p").innerHTML+=e.key;
                     self.reponse+=e.key;
                 }
+                else if(e.key=="Backspace" && self.reponse!=null){
+                    console.log("effacer le dernier caractère");
+                    let str=self.blackboard.querySelector("p").innerHTML;
+                    str = str.substring(0, str.length - 1);
+                    self.reponse = self.reponse.substring(0, str.length - 1);
+
+                }
                 else if(e.key=="Enter"){
                     self.validerReponse();
                 }

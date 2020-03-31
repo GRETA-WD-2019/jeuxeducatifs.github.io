@@ -43,6 +43,22 @@ main#playground #score{
 
 }
 
+main#playground #lives{
+    position : absolute;
+    top: 1em;
+    right:1em;
+}
+
+main#playground #lives .life{
+    display:inline-block;
+    width:2em;
+    height:1em;
+    margin-left:.5em;
+    background:url(gfx/ptero.png) no-repeat;
+    background-size:contain;
+    /*transform:rotateY(180deg);*/
+}
+
 main#playground h1{
     font-size: 1em;
 }
