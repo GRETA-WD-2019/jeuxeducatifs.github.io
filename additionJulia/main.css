@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    min-height: 100vh;
+    background: url(images/sunset-4926468_1280.png);
+}
+
+h1{
+    text-align: center;
+    font-size:50px;
+    margin-top: 80px;
+    font-family: 'Indie Flower', cursive;
+}
+
+button{
+
+    margin-left: 480px;
+    margin-top: 200px;
+    font-size: 70px;
+    font-family: 'Indie Flower', cursive;
+    background-color: #fdc650;
+    border: none;
+    border-radius: 15px;
+}
+main#playground{
+    text-align: center;
+    font-size:40px;
+    font-family: 'Indie Flower', cursive;
+    margin-top: 20px;
+}
+
+main#playground,#score{
+    position: absolute;
+    margin-top: 300px;
+    margin-left: 550px;
+    font-size:55px;
+    font-family: 'Indie Flower', cursive;
+    top: 10px;
+}
+
+main#playground #blackboard,p,btnSuivant{
+    margin-top: 100px;
+    font-family: 'Indie Flower', cursive;
+}
+main#playground #blackboard,p#calcul{
+    
+    font-size:25px;
+    text-align: center;
+    margin-top: 150px;
+}
+
+main#playground #blackboard,p,bravo{
+    text-align: center;
+    font-size: 40px;
+}
+
+main#playground,#lives span{
+    display:inline-block;
+    width:30px;
+    height:30px;
+    margin-left:0.5em;
+    
+    background:url(images/palmier.png);
+    background-size: contain;
+}
+
+
+main#playground,#lives{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}  
