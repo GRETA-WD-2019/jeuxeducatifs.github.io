@@ -21,6 +21,12 @@
             self.scoreDiv.setAttribute("id","score");
             self.container.appendChild(self.scoreDiv);
 
+
+            self.livesDiv=document.createElement("div");
+            self.livesDiv.setAttribute("id","lives");
+            self.container.appendChild(self.livesDiv);
+
+
             self.blackboard=document.createElement("div");
             self.blackboard.setAttribute("id","blackboard");
             self.container.appendChild(self.blackboard);
@@ -29,6 +35,9 @@
 
 
             self.score=0;
+
+            self.lives=3;
+
 
             self.a = null;
             self.b = null;
@@ -42,10 +51,39 @@
                 self.scoreDiv.innerHTML="Score : "+ self.score;
             }
 
+            self.updateLives=function(){
+                console.log(self.lives);
+
+                self.livesDiv.innerHTML="";
+
+                for (i=0; i  < self.lives;i++){
+
+                    self.livesDiv.innerHTML+="<span class=\"life\"></span>";
+
+                }
+
+            }
+
+            self.gameOver=function(){
+
+                self.blackboard.innerHTML="<h1>Game Over</h1>";
+
+                let btnRestart = document.createElement("button");
+                btnRestart.innerText="Rejouer";
+                btnRestart.addEventListener("click",self.startGame);
+                self.blackboard.appendChild(btnRestart);
+
+
+            }
+
+
             self.startGame=function(){
 
                 self.score=0;
                 self.updateScore();
+
+                self.lives=3;
+                self.updateLives();
 
                 self.blackboard.innerHTML="<h1>Bienvenue, le jeu des additions.</h1>";
                 let btnStart = document.createElement("button");
@@ -70,7 +108,20 @@
                 }
                 else{
                     self.blackboard.innerHTML='<p>Dommage <br> La bonne réponse était '+reponseJuste+" :(</p>"
+                    
+                    self.lives-=1;
+                    self.updateLives();
+
                 }
+
+
+                if (self.lives==0 ){
+
+                    setTimeout(self.gameOver,500);
+
+                    return /// fin de la partie
+                }
+
 
                 let btnSuivant = document.createElement("button");
                 btnSuivant.innerText="Calcul suivant";
@@ -96,10 +147,11 @@
 
             self.nextQuestion=function(){
 
-                
+                let puissance=Math.floor(self.score/10)+1;
+                console.log(puissance);
                 self.reponse="";
-                self.a=Math.round(Math.random()*100);
-                self.b=Math.round(Math.random()*100);
+                self.a=Math.round(Math.random() * Math.pow(10,puissance));
+                self.b=Math.round(Math.random()*Math.pow(10,puissance) );
 
                 self.blackboard.innerHTML='<p id="calcul">'+self.a+" + "+self.b+" = </p>";
                 

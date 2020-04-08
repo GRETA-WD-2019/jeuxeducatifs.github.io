@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css">
+    <title>Les additions</title>
+    
+<script>
+        
+    
+    function AdditionGame(domContainerId){
+        
+        /*affectation de self à self qui permettra d'être toujours surde faire référence à l'objet*/
+        
+        let self = this;
+        
+        self.domContainerId = domContainerId;
+        self.container = document.getElementById(domContainerId);
+        
+        /*on va recréer 2 un blocks à l'intérieur du container scoreetblackboard.*/ 
+        
+        self.scoreDiv=document.createElement("div");
+        self.scoreDiv.setAttribute("id","score");
+        self.container.appendChild(self.scoreDiv);
+        
+        self.livesDiv=document.createElement("div");
+        self.livesDiv.setAttribute("id","lives");
+        self.container.appendChild(self.livesDiv);
+        
+        self.blackboard=document.createElement("div");
+        self.blackboard.setAttribute("id","blackboard");
+        self.container.appendChild(self.blackboard);
+        
+        self.score=0;
+        
+        self.lives=3;
+        
+        self.a=null;
+        self.b=null;
+        self.reponse=null;
+        
+        self.updateScore=function(){
+            self.scoreDiv.innerHTML="Score : "+ self.score; 
+        }
+        
+        self.updateLives=function(){
+                console.log(self.lives);
+            
+                self.livesDiv.innerHTML="";
+            
+                for (i=0; i  < self.lives;i++){
+                    self.livesDiv.innerHTML+="<span class=\"life\"></span>";
+                }
+            }
+        
+            self.gameOver=function(){
+                self.blackboard.innerHTML="<h1>Game Over</h1>";
+                
+                let btnRestart = document.createElement("button");
+                btnRestart.innerText="Rejouer";
+                btnRestart.addEventListener("click",self.startGame);
+                self.blackboard.appendChild(btnRestart);
+            }
+            
+        self.startGame=function(){
+            
+            self.score=0;
+            self.updateScore();
+            
+            self.lives=3;
+                self.updateLives();
+            
+            self.blackboard.innerHTML="<h1> Bienvenue, dans le jeux des additions. <h1>";
+            let btnStart = document.createElement("button");
+            btnStart.innerHTML="C'est parti";
+            btnStart.addEventListener("click", self.nextQuestion);
+            self.blackboard.appendChild(btnStart);
+            
+        }
+        
+        self.validerReponse=function(){
+            
+            removeEventListener("keydown", self.keyPressed);
+            
+            let reponseJuste=Number(self.a)+Number(self.b);
+            console.log(reponseJuste);
+            
+            if(reponseJuste==Number(self.reponse)){
+                self.blackboard.innerHTML='<p>Bravo <p>';
+                self.score+=1;
+                self.updateScore();
+            }
+            else{
+                self.blackboard.innerHTML='<p>Dommage la bonne réponse etait '+reponseJuste+" :-(<p>"; 
+            
+            
+            self.lives-=1;
+                    self.updateLives();
+                
+                }
+            
+            if (self.lives==0 ){
+                    setTimeout(self.gameOver,500);
+                    return /// fin de la partie
+                }
+
+
+            
+            let btnSuivant = document.createElement("button");
+            btnSuivant.innerHTML='<p>Calcul suivant<p>';
+            
+            btnSuivant.addEventListener("click", self.nextQuestion);
+            self.blackboard.appendChild(btnSuivant);
+        }
+        
+        self.keyPressed=function(e){
+            console.log(e.key);
+            
+            e.preventDefault();
+            /*sinon backspace renvoie à la page précedente*/
+            
+            /* si la valeur de la touvhe est un nombre infini*/
+            
+            if (isFinite(e.key)){
+                self.blackboard.querySelector("p").innerHTML+=e.key;
+                self.reponse+=e.key;
+            }
+            else if(e.key=="Enter"){
+                self.validerReponse();
+            }
+        }
+        
+        self.nextQuestion=function(){
+            
+            let puissance=Math.floor(self.score/10)+1;
+                console.log(puissance);
+            
+            self.reponse="";
+            /*self.a=Math.round(Math.random()*100);
+            self.b=Math.round(Math.random()*100);*/
+            self.a=Math.round(Math.random() * Math.pow(10,puissance));
+            self.b=Math.round(Math.random()*Math.pow(10,puissance) );
+            
+            self.blackboard.innerHTML= '<p id="calcul">'+self.a+" + "+self.b+" =</p> ";
+            
+            addEventListener("keydown",self.keyPressed);
+        }
+        
+    }
+            window.addEventListener(
+            "DOMContentLoaded",
+            function(){
+                partie=new AdditionGame("playground");
+                partie.startGame();
+            }
+        );
+        
+    
+    
+</script>
+
+</head>
+<body>
+    <main>
+             
+            <div id="playground">
+             <!--<div id="score"></div>-->
+          
+           
+        </div>
+        </main>
+   
+    
+</body>
+</html>
