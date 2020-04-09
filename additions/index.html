@@ -31,7 +31,17 @@
             self.blackboard.setAttribute("id","blackboard");
             self.container.appendChild(self.blackboard);
 
+            self.clavierDiv=document.createElement('div');
+            self.clavierDiv.setAttribute('id','clavier');
             
+            for (i=0;i<10;i++){
+                self.clavierDiv.innerHTML+='<button value="'+i+'">'+i+'</button> ';
+
+            }
+            self.clavierDiv.innerHTML+='<button value="Enter">=</button> ';
+            self.clavierDiv.innerHTML+='<button value="Backspace">&lt;--</button> ';
+
+            self.container.appendChild(self.clavierDiv);
 
 
             self.score=0;
@@ -127,8 +137,48 @@
                 btnSuivant.innerText="Calcul suivant";
                 btnSuivant.addEventListener("click",self.nextQuestion);
                 self.blackboard.appendChild(btnSuivant); 
+                addEventListener("keydown",self.nextQuestion);
 
             }
+
+            self.buttonPressed=function(e){
+                
+                let boutonClicke=e.target;
+
+                console.log(boutonClicke);
+
+                //si j'ai cliqué en dehors d'un bouton je sors de la fonction
+                if (boutonClicke.tagName!="BUTTON"){
+                    return;
+                }
+
+                let btnValeur=boutonClicke.value;
+
+                if (isFinite(btnValeur)){
+                    self.blackboard.querySelector("p").innerHTML+=btnValeur;
+                    self.reponse+=btnValeur;
+                }
+                else if(btnValeur=="Backspace"){
+
+                    if (self.reponse==""){
+                        return;
+                    }
+
+                    let calcul=self.blackboard.querySelector("p").innerHTML
+                    self.blackboard.querySelector("p").innerHTML=calcul.substring(0,calcul.length - 1);
+                    self.reponse=self.reponse.substring(0,calcul.length - 1);
+
+                }
+                else if(btnValeur=="Enter"){
+                    self.validerReponse();
+                }
+
+
+
+            }
+
+
+
 
             self.keyPressed=function(e){
                 console.log(e.key);
@@ -140,12 +190,29 @@
                     self.blackboard.querySelector("p").innerHTML+=e.key;
                     self.reponse+=e.key;
                 }
+
+                else if(e.key=="Backspace"){
+
+                    if (self.reponse==""){
+                        return;
+                    }
+
+                    let calcul=self.blackboard.querySelector("p").innerHTML
+                    self.blackboard.querySelector("p").innerHTML=calcul.substring(0,calcul.length - 1);
+                    self.reponse=self.reponse.substring(0,calcul.length - 1);
+
+                }
+
+
                 else if(e.key=="Enter"){
                     self.validerReponse();
                 }
             }
 
             self.nextQuestion=function(){
+
+                removeEventListener("keydown",self.nextQuestion);
+                
 
                 let puissance=Math.floor(self.score/10)+1;
                 console.log(puissance);
@@ -156,6 +223,7 @@
                 self.blackboard.innerHTML='<p id="calcul">'+self.a+" + "+self.b+" = </p>";
                 
                 addEventListener("keydown",self.keyPressed);
+                self.clavierDiv.addEventListener("click",self.buttonPressed);
 
             }
 
