@@ -124,3 +124,19 @@ body::after{
     background-size:contain;
     z-index:1000;
 }
+
+#clavier>button{
+
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    display:inline-block;
+    width:3.5vw;
+    height:3vw;
+    background:url('gfx/caillou.png') no-repeat center center;
+    background-size:contain;
+    color:white;
+    text-indent:1em;
+
+}
